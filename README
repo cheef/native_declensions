@@ -1,0 +1,37 @@
+native_declensions
+===============
+This plugin add some methods to work with native declensions, expected russian.
+
+There are two main methods:
+- declension (return right declension for object)
+- by_gender (choose right version of word)
+
+Installation
+===============
+In your AR model use "native_declensions" with options, as in expample:
+
+native_declensions :singular => {:i => "i_declension", :r => "r_declension", :d => "d_declension", :v => "v_declension", :t => "t_declension", :p => "p_declension"},
+  :plural=> {:i => "i_declension", :r => "r_declension", :d => "d_declension", :v => "v_declension", :t => "t_declension", :p => "p_declension"},
+  :gender => "feminine"
+
+There only 3 keys available => :singular, :plural and :gender, first and second must be hashes with versions of object name.
+Third param allow choose the right verb declension for using with our object name. 
+
+Some other examples
+===============
+@my_model.declension => (choose [:singular][:i] variant) => "i_declension"
+@my_model.declension(:r) => (choose [:singular][:r] variant) => "r_declension"
+@my_model.declension(:r, false) => (choose [:plural][:r] variant) => "r_declension"
+@my_model.by_gender("masculine_verb", "feminine_verb", "neuter_verb") => "feminine_verb"
+
+Warnings
+===============
+There is a Hash class extension, adds new method "stringify_all_keys!", that recursively stringify all keys in Hash
+
+hash = {:test => {:test2 => "test3"}}
+hash.stringify_all_keys!
+
+{"test" => {"test2" => "test3"}}
+
+
+Copyright (c) 2008 Ivan Garmatenko <cheef.che@gmail.com>, released under the MIT license
